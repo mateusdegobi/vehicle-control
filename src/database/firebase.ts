@@ -22,3 +22,9 @@ export async function getRemoteItem(ref: string): Promise<any> {
     });
   return item;
 }
+export async function pushDataToRemote(ref: string, data: any) {
+  await firebase.database().ref(ref).push(data);
+}
+export async function setDataToRemote(ref: string, data: any) {
+  await firebase.database().ref(ref).set(data);
+}
