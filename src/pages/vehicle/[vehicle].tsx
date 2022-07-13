@@ -10,7 +10,9 @@ import {
 
 import * as S from "./styles/vehicle.styled";
 import { Transation } from "../../@types/VehicleResume";
-import Link from "next/link";
+import Header from "./Components/Header";
+import Content from "./Components/Content";
+import { Views } from "./Components/Views";
 
 const user = "kim3dis";
 const PATH_VEHICLES = `/vehicles/${user}`;
@@ -27,6 +29,8 @@ function VehicleData() {
   const [dateInput, setDateInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [tagInput, setTagInput] = useState("");
+
+  const [activeSwitcher, setActiveSwitcher] = useState("overview");
 
   useEffect(() => {
     async function getData() {
@@ -75,53 +79,9 @@ function VehicleData() {
 
   return (
     <S.Background>
-      <S.Banner>
-        <S.H1>{vehicle}</S.H1>
-        <p>{currentOdometer}km de história</p>
-
-        <div>
-          <input
-            type="number"
-            placeholder="odometer"
-            name="odometer"
-            id="odometer"
-            value={odometerInput}
-            onChange={({ target: { value } }) => {
-              console.log(value);
-              setOdometerInput(Number(value));
-            }}
-          />
-          <input
-            type="date"
-            placeholder="dd-mm-yyyy"
-            name="date"
-            id="date"
-            value={dateInput}
-            onChange={({ target: { value } }) => setDateInput(value)}
-          />
-          <input
-            type="text"
-            placeholder="desc"
-            name="descricao"
-            id="descricao"
-            value={descInput}
-            onChange={({ target: { value } }) => setDescInput(value)}
-          />
-          <input
-            type="text"
-            placeholder="tag"
-            name="tag"
-            id="tag"
-            value={tagInput}
-            onChange={({ target: { value } }) => setTagInput(value)}
-          />
-          <button onClick={sendData}>Atualizar odometro</button>
-        </div>
-      </S.Banner>
-
-      <S.Content>
-        <ListHistory />
-      </S.Content>
+      <Header />
+      <Content currentOdometer={currentOdometer} />
+      <Views activeSwitcher={activeSwitcher} setActiveSwitcher={setActiveSwitcher} />
     </S.Background>
   );
 }
